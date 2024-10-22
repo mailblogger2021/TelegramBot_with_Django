@@ -1,0 +1,35 @@
+name: Django CI with Telegram Bot
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python 3.8 and virtual environment
+      run: |
+        python -m venv venv  # Create virtual environment
+        source venv/bin/activate  # Activate virtual environment
+        python -m pip install --upgrade pip  # Upgrade pip inside virtual environment
+        pip install -r requirements.txt  # Install dependencies from requirements.txt
+
+    - name: Apply database migrations
+      run: |
+        source venv/bin/activate  # Activate virtual environment
+        cd django_telegram_bot  # Navigate to your Django project directory
+        python manage.py makemigrations  # Create database migrations
+        python manage.py migrate  # Apply database migrations
+
+    - name: Run Telegram Bot
+      run: |
+        source venv/bin/activate  # Activate virtual environment
+        cd django_telegram_bot  # Navigate to your Django project directory
+        nohup python bot.py &  # Run your Telegram bot in the background
