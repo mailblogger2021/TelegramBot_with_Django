@@ -31,7 +31,7 @@ def main() -> None:
     token = "6511501073:AAHbWvFY_dKcUQfKNGFODOeYK8PEUJ4vXPI"
     application = ApplicationBuilder().token(token).build()
     application.add_handler(CommandHandler('start', start))
-    application.run_polling()
+    application.infinity_polling()
 
 if __name__ == '__main__':
     main()
