@@ -27,7 +27,8 @@ def main() -> None:
 )
     logger = logging.getLogger(__name__)
     load_dotenv()
-    token = os.getenv('TOKEN')
+    # token = os.getenv('TOKEN')
+    token = "6511501073:AAHbWvFY_dKcUQfKNGFODOeYK8PEUJ4vXPI"
     application = ApplicationBuilder().token(token).build()
     application.add_handler(CommandHandler('start', start))
     application.run_polling()
